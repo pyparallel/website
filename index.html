@@ -120,7 +120,11 @@
                         <img class="svg-image" src="wrk-rps-comparison-pt.svg"/>
                     </a>
                     <a href="wrk-ntiles-comparison1-x2.png" target="_blank">
-                        <img src="wrk-ntiles-comparison1-x1.png"/>
+                        <picture>
+                            <source srcset="wrk-ntiles-comparison1-x1.png" media="(max-width: 753px)"/>
+                            <source srcset="wrk-ntiles-comparison1-x2.png">
+                            <img width="1000px" srcset="wrk-ntiles-comparison1-x2.png">
+                        </picture>
                     </a>
                 </div>
                 <h2>PyParallel on Windows versus Python equivalents on Linux</h2>
