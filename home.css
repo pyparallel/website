@@ -270,12 +270,12 @@ h3 {
 }
 pre.code {
     text-align: left;
-    max-width: 500px;
+    max-width: 750px;
     margin: auto;
 }
 .tab-box {
     text-align: left;
-    max-width: 520px;
+    max-width: 770px;
     margin: auto;
 }
 /* override prism syntax highlighter theme */
