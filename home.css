@@ -333,3 +333,17 @@ pre[class*="language-"] {
     height: 100px;
     opacity: 0.3;
 }
+
+.svg-image2 {
+    width: 300px;
+    height: 175px;
+}
+
+@media only screen and (min-width: 1000px) {
+    .svg-image2 {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+/* vim: set ts=8 sw=4 sts=4 tw=0 */

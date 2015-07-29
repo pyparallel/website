@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <!-- vim: set tw=0 ts=8 sw=4 et -->
     <head>
         <title>PyParallel</title>
         <!-- https://www.google.com/fonts#UsePlace:use/Collection:Lato:200,300,300italic -->
@@ -20,12 +21,21 @@
             </div>
             <ul class="header-links">
                 <li><a href="#home"><i class="fa fa-home"></i>About</a></li>
-                <li><a href="#benchmarks"><i class="fa fa-bar-chart"></i>Benchmarks</a></li>
+                <li><a href="#performance"><i class="fa fa-bar-chart"></i>Performance</a></li>
                 <!-- Hah, fighter jet.  As if I'm not going to use that. -->
                 <li><a href="#presentations"><i class="fa fa-fighter-jet"></i>Presentations</a></li>
                 <li><a href="https://github.com/pyparallel/pyparallel/wiki" target="_blank"><i class="fa fa-book"></i> Docs</a></li>
-                <li><a href="https://github.com/pyparallel/pyparallel" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
                 <li><a href="#download"><i class="fa fa-download"></i> Download</a></li>
+                <li><a href="https://github.com/pyparallel/pyparallel" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
+                <li><a href="https://twitter.com/pyparallel" class="twitter-follow-button" data-show-count="false">Follow @pyparallel</a></li>
+                <!--
+                <iframe allowtransparency="true"
+                        frameborder="0"
+                        height="30"
+                        scrolling="0"
+                        src="//ghbtns.com/github-btn.html?user=pyparallel&amp;repo=pyparallel&amp;type=watch&amp;count=true&amp"
+                        width="150"></iframe>
+                -->
             </ul>
         </header>
 
@@ -34,7 +44,7 @@
             <div class="container">
                 <h1>Py<strong>Parallel</strong></h1>
                 <h2>
-                    An experimental, high-performance fork of Python 3<br/>
+                    An experimental, proof-of-concept fork of Python 3<br/>
                     designed to optimally exploit multiple CPU cores, fast<br/>
                     SSDs, NUMA architectures and 10Gb+ Ethernet networks.
                 </h2>
@@ -48,7 +58,7 @@
         <section class="section section-summary">
             <div class="container">
                 <h3>
-                    Async I/O meets multithreading.
+                    Async I/O meets multicore.
                 </h3>
                 <p>
                     PyParallel combines the concurrency benefits afforded by single-threaded async I/O<br/>
@@ -58,7 +68,8 @@
                     Scales linearly with cores and I/O bandwidth.
                 </h3>
                 <p>
-                    PyParallel scales linearly as additional cores and I/O channels are added.<br/>
+                    PyParallel exhibits excellent linear scaling across all cores when sufficient client<br/>
+                    load can be generated, maintaining low-latency <em>and</em> high-throughput under load.<br/>
                 </p>
                 <h3>
                     Includes PyParallel-compatible versions of NumPy, datrie and pyodbc.
@@ -75,22 +86,44 @@
                     All delivered from a single Python process that dynamically adjusts its<br/>
                     behavior to maximise the performance of underlying hardware.<br/>
                 </p>
-                <p><iframe allowtransparency="true"
-                        frameborder="0"
-                        height="30"
-                        scrolling="0"
-                        src="//ghbtns.com/github-btn.html?user=pyparallel&amp;repo=pyparallel&amp;type=watch&amp;count=true&amp"
-                        width="150"></iframe></p>
             </div>
         </section>
 
-        <a class="xref" name="benchmarks"></a>
-        <section class="section section-benchmarks">
+        <a class="xref" name="performance"></a>
+        <section class="section section-performance">
             <div class="container">
-                <h1>Benchmarks</h1>
+                <h1>Performance</h1>
+                <h2>Linear Scaling</h2>
                 <p>
-                    Coming soon.
+                    PyParallel's throughput (HTTP requests per second) scales linearly as concurrency<br/>
+                    increases, indicating optimal use of multiple cores.  Additionally, percentile<br/>
+                    latencies show very desirable properties across the entire range.<br/>
                 </p>
+                <div>
+                    <a href="wrk-rps-fhs-pt.svg" target="_blank">
+                        <img class="svg-image" src="wrk-rps-fhs-pt.svg"/>
+                    </a>
+                    <a href="wrk-cdf-fhs-pt.svg" target="_blank">
+                        <img class="svg-image" src="wrk-cdf-fhs-pt.svg"/>
+                    </a>
+                </div>
+                <h2>PyParallel versus NodeJS versus Go</h2>
+                <p>
+                    PyParallel fairs well against the competition.  In the following benchmark,<br/>
+                    <em>PyParallel (Fast)</em> leverages the new SSE-accelerated HTTP parser and<br/>
+                    other optimizations, whereas <em>PyParallel (Slow)</em> a HTTP parser written<br/>
+                    entirely in Python.  A concurrency of 8 was used for the test.  All times are<br/>
+                    in microseconds.
+                </p>
+                <div>
+                    <a href="wrk-rps-comparison-pt.svg" target="_blank">
+                        <img class="svg-image" src="wrk-rps-comparison-pt.svg"/>
+                    </a>
+                    <a href="wrk-ntiles-comparison1-x2.png" target="_blank">
+                        <img src="wrk-ntiles-comparison1-x1.png"/>
+                    </a>
+                </div>
+
             </div>
         </section>
 
@@ -204,26 +237,14 @@ async.run()
                 <h1>Download</h1>
                 <p>
                     PyParallel is alpha level quality and should not be used in production.
-                    All interfaces and implementation details are subject to change.
+                    All interfaces and implementation details are subject to change.  Windows 7
+                    support is currently broken.  64-bit builds only.
                 </p>
 
-                <div class="cols-3 download">
-                    <div>
-                        <div class="download-platform-icon"><i class="fa fa-windows"></i></div>
-                        <p><a href="http://download.pyparallel.org/pyparallel-3.3.99732.amd64.msi?os=win7" class="button-small">Windows 7 64-bit <i class="fa fa-download"></i></a></p>
-                    </div>
-                    <div>
-                        <div class="download-platform-icon"><i class="fa fa-windows"></i></div>
-                        <p><a href="http://download.pyparallel.org/pyparallel-3.3.99732.amd64.msi?os=win8" class="button-small">Windows 8 64-bit <i class="fa fa-download"></i></a></p>
-                    </div>
-                    <div>
-                        <div class="download-platform-icon"><i class="fa fa-windows"></i></div>
-                        <p><a href="http://download.pyparallel.org/pyparallel-3.3.99732.amd64.msi?os=win10" class="button-small">Windows 10 64-bit <i class="fa fa-download"></i></a></p>
-                    </div>
+                <div>
+                    <div class="download-platform-icon"><i class="fa fa-windows"></i></div>
+                    <p><a href="https://github.com/pyparallel/download/raw/master/pyparallel-3.3.99732.amd64.msi" class="button-small">Windows 8/10 64-bit <i class="fa fa-download"></i></a></p>
                 </div>
-
-                <p>Current build: 3.3.5.99732.</p>
-
             </div>
         </section>
 
@@ -241,20 +262,22 @@ async.run()
         <section class="section section-footer">
             <div class="container">
                 <small>
-                <p>
-                    PyParallel was created by <a href="https://twitter.com/trentnelson" target="_blank">Trent Nelson</a>
-                </p>
-                <p>
-                    Sponsored in part by <a href="http://continuum.io" target="_blank">Continuum Analytics</a>
-                </p>
-                <p>
-                    Site design <a href="https://twitter.com/joewalnes/status/567495778349113345" target="_blank">pilfered unrepentantly</a> from
-                    <a href="https://twitter.com/joewalnes" target="_blank">Joe Walnes</a>'s <a href="http://websocketd.com/" target="_blank">websocketd</a>
-                    <a href="https://github.com/joewalnes/websocketd/tree/gh-pages">website</a>.
-                </p>
-                <p>
-                    Copyright 2015 Trent Nelson.  All rights reserved.
-                </p>
+                    <p>
+                        PyParallel was created by <a href="https://twitter.com/trentnelson" target="_blank">Trent Nelson</a>
+                    </p>
+                    <p>
+                        <!-- WHY ARE YOU SLIGHTLY NOT CENTERED?! Someone plz help, kthnx. -->
+                        <a href="https://twitter.com/trentnelson" class="twitter-follow-button" data-show-count="false">Follow @trentnelson</a>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=tpn&type=follow" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+                    </p>
+                    <p>
+                        Sponsored in part by <a href="http://continuum.io" target="_blank">Continuum Analytics</a>
+                    </p>
+                    <p>
+                        Site design <a href="https://twitter.com/joewalnes/status/567495778349113345" target="_blank">pilfered unrepentantly</a> from
+                        <a href="https://twitter.com/joewalnes" target="_blank">Joe Walnes</a>'s <a href="http://websocketd.com/" target="_blank">websocketd</a>
+                        <a href="https://github.com/joewalnes/websocketd/tree/gh-pages">website</a>.
+                    </p>
                 </small>
             </div>
         </section>
@@ -274,5 +297,4 @@ async.run()
         </script>
 
     </body>
-    <!-- vim: set tw=0 ts=8 sw=4 et -->
 </html>
