@@ -111,7 +111,7 @@
                 <p>
                     PyParallel fairs well against the competition.  In the following benchmark,<br/>
                     <em>PyParallel (Fast)</em> leverages the new SSE-accelerated HTTP parser and<br/>
-                    other optimizations, whereas <em>PyParallel (Slow)</em> a HTTP parser written<br/>
+                    other optimizations, whereas <em>PyParallel (Slow)</em> uses HTTP parser written<br/>
                     entirely in Python.  A concurrency of 8 was used for the test.  All times are<br/>
                     in microseconds.
                 </p>
@@ -123,7 +123,17 @@
                         <img src="wrk-ntiles-comparison1-x1.png"/>
                     </a>
                 </div>
-
+                <h2>PyParallel on Windows versus Python equivalents on Linux</h2>
+                <p>
+                    PyParallel is significantly more performant on Windows than Python equivalents<br/>
+                    that use multiprocessing/fork on Linux (on identical hardware).  Plus, PyParallel<br/>
+                    is a single process and thus, large main-memory data structures can be loaded once<br/>
+                    and then accessed freely in parallel without needed to duplicate the entire structure<br/>
+                    in memory.
+                </p>
+                <p>
+                    (Graphs coming soon.)
+                </p>
             </div>
         </section>
 
