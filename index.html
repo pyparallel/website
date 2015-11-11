@@ -74,7 +74,9 @@
                     load can be generated, maintaining low-latency <em>and</em> high-throughput under load.<br/>
                 </p>
                 <h3>
-                    Includes PyParallel-compatible versions of NumPy, datrie and pyodbc.
+                    Includes PyParallel-compatible versions of NumPy, datrie,
+                    pyodbc, IPython, IPython Notebook, Pandas, Cython and many
+                    more.
                 </h3>
                 <p>
                     <a href="https://github.com/pyparallel/pyparallel/blob/branches/3.3-px/examples/wiki/wiki.py" target="_blank">
@@ -249,21 +251,21 @@
 <pre class="code content-plaintext"><code class="language-python">
 # PyParallel (Fast)
 # (Uses picohttpparser's SSE-accelerated HTTP parser.)
-import async
+import parallel
 class Plaintext:
     http11 = True
     def plaintext(self, transport, data):
         return b'Hello, World!'
 
-server = async.server('0.0.0.0', 8080)
-async.register(transport=server, protocol=Plaintext)
-async.run()
+server = parallel.server('0.0.0.0', 8080)
+parallel.register(transport=server, protocol=Plaintext)
+parallel.run()
 </code></pre>
 <pre class="code content-plaintext-slow"><code class="language-python">
 # PyParallel (Slow)
 # (Uses Python-based HTTP parser)
-import async
-from async.http.server import (
+import parallel
+from parallel.http.server import (
     router,
     make_routes,
     text_response,
@@ -279,9 +281,9 @@ class Plaintext(HttpServer):
     def plaintext(self, request):
         return text_response(request, text='Hello, World!')
 
-server = async.server('0.0.0.0', 8080)
-async.register(transport=server, protocol=Plaintext)
-async.run()
+server = parallel.server('0.0.0.0', 8080)
+parallel.register(transport=server, protocol=Plaintext)
+parallel.run()
 </code></pre>
 <pre class="code content-tefb"><code class="language-python">
 # Implementation of entire TEFB suite in pure Python.
@@ -292,14 +294,14 @@ import sys
 import json
 import pyodbc
 
-import async
+import parallel
 
 from ctk.util import (
     try_int,
     Dict,
 )
 
-from async import (
+from parallel import (
     rdtsc,
     sys_stats,
     socket_stats,
@@ -311,7 +313,7 @@ from async import (
     call_from_main_thread_and_wait,
 )
 
-from async.http.server import (
+from parallel.http.server import (
     quote_html,
     router,
     make_routes,
@@ -546,7 +548,7 @@ class TefbHttpServer(HttpServer):
             'memory': dict(memory_stats()),
             'contexts': dict(context_stats()),
             'elapsed': request.transport.elapsed(),
-            'thread': async.thread_seq_id(),
+            'thread': parallel.thread_seq_id(),
         }
         json_serialization(request, stats)
 
@@ -591,7 +593,7 @@ parallel.
 # Imports
 #===============================================================================
 import json
-import async
+import parallel
 import socket
 import datrie
 import string
@@ -606,7 +608,7 @@ from numpy import (
     uint64,
 )
 
-from async import (
+from parallel import (
     rdtsc,
 
     sys_stats,
@@ -620,7 +622,7 @@ from async import (
     CachingBehavior,
 )
 
-from async.http.server import (
+from parallel.http.server import (
     router,
     make_routes,
 
@@ -696,7 +698,7 @@ uint64_11 = uint64(11)
 #===============================================================================
 # Globals
 #===============================================================================
-#wiki_xml = async.open(WIKI_XML_PATH, 'r', caching=CachingBehavior.RandomAccess)
+#wiki_xml = parallel.open(WIKI_XML_PATH, 'r', caching=CachingBehavior.RandomAccess)
 
 offsets = np.load(TITLES_OFFSETS_NPY_PATH)
 
@@ -743,7 +745,7 @@ def json_serialization(request=None, obj=None):
         transport = request.transport
     if not obj:
         obj = {}
-    #async.debug('obj: %r' % obj)
+    #parallel.debug('obj: %r' % obj)
     response = request.response
     response.code = 200
     response.message = 'OK'
@@ -899,7 +901,7 @@ class WikiServer(HttpServer):
             'memory': dict(memory_stats()),
             'contexts': dict(context_stats()),
             'elapsed': request.transport.elapsed(),
-            'thread': async.thread_seq_id(),
+            'thread': parallel.thread_seq_id(),
         }
         if args:
             name = args[0]
@@ -935,14 +937,14 @@ class WikiServer(HttpServer):
 #===============================================================================
 
 def main():
-    server = async.server(IPADDR, PORT)
-    async.register(transport=server, protocol=WikiServer)
-    async.run_once()
+    server = parallel.server(IPADDR, PORT)
+    parallel.register(transport=server, protocol=WikiServer)
+    parallel.run_once()
     return server
 
 if __name__ == '__main__':
     server = main()
-    async.run()
+    parallel.run()
 
 
 # vim:set ts=8 sw=4 sts=4 tw=78 et:
@@ -963,7 +965,9 @@ if __name__ == '__main__':
 
                 <div>
                     <div class="download-platform-icon"><i class="fa fa-windows"></i></div>
-                    <p><a href="https://github.com/pyparallel/download/raw/master/pyparallel-3.3.99732.amd64.msi" class="button-small">Windows 8/10 64-bit <i class="fa fa-download"></i></a></p>
+                    <p><a
+                    href="https://github.com/pyparallel/pyparallel/releases"
+                    class="button-small">Windows 7/8/10 64-bit<i class="fa fa-download"></i></a></p>
                 </div>
             </div>
         </section>
